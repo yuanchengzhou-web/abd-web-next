@@ -1,8 +1,17 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import Head from 'next/head';
 
-function MyApp({ Component, pageProps }: AppProps) {
+import {useEffect} from 'react';
+
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(()=>{
+    require('@/styles/template/animate.css');
+    require('@/styles/template/font-awesome.min.css');
+    require('@/styles/template/magnific-popup.css');
+    require('@/styles/template/owl.carousel.css');
+    require('@/styles/template/themify-icons.css');
+  })
   return <Component {...pageProps} />
 }
 
-export default MyApp
