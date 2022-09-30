@@ -11,6 +11,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     require('@/styles/template/magnific-popup.css');
     require('@/styles/template/owl.carousel.css');
     require('@/styles/template/themify-icons.css');
+    require('@/styles/template/bootstrap.min.css');
   })
   return <Component {...pageProps} />
 }
