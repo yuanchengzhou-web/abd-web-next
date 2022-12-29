@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 
 export interface PostInfo {
   postType: string;
@@ -7,7 +7,7 @@ export interface PostInfo {
   blogClass: string;
   travelClass: string;
   h5Class: string;
-  thumbnail: string;
+  thumbnail: string | StaticImageData;
   title: string;
   href: string;
   paragraph: string;
