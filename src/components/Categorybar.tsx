@@ -1,163 +1,139 @@
 import Link from 'next/link';
+import { useEffect, useState, useRef } from 'react';
+import Dropdown from '@/components/DropdownMenu';
 
 interface Props {
   title: string;
   tabID: string;
 }
 
+interface Items {
+  label: string;
+  subItems?: SubItems[];
+}
+
+interface SubItems {
+  label: string;
+  value: string;
+}
+
+const categoryInfo: Items[] = [
+  {
+    label: 'All',
+  },
+  {
+    label: 'Style hunter',
+  },
+  {
+    label: 'Vogue',
+  },
+  {
+    label: 'Health & Fitness',
+  },
+  {
+    label: 'Travel',
+  },
+  {
+    label: 'Gadgets',
+  },
+  {
+    label: 'More',
+    subItems: [
+      {
+        label: 'Sports',
+        value: '/',
+      },
+      {
+        label: 'Politices',
+        value: '/',
+      },
+      {
+        label: 'Features',
+        value: '/',
+      },
+    ],
+  },
+];
+
 export default function CategoryBar({ title, tabID }: Props) {
+  const [selectedTab, setSelectedTab] = useState();
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const dropdownMenuRef = useRef<HTMLDivElement>(null);
+
+  const handleSelectedTab = (tab: any) => {
+    setSelectedTab(tab);
+  };
+
+  const handleDropdownClick = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  useEffect(() => {
+    const clickOutSide = (e: any) => {
+      if (!dropdownMenuRef.current?.contains(e.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', clickOutSide);
+
+    return () => {
+      setShowDropdown(false);
+    };
+  }, []);
+
   return (
     <div>
       <ul className="nav nav-tabs" id={tabID} role="tablist">
         <li className="title">{title}</li>
-
-        <li className="nav-item">
-          <Link href="/">
-            <a
-              className="nav-link active"
-              id="tab1"
-              data-toggle="tab"
-              href="#world-tab-1"
-              role="tab"
-              aria-controls="world-tab-1"
-              aria-selected="true"
-            >
-              All
-            </a>
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link href="/">
-            <a
-              className="nav-link"
-              id="tab2"
-              data-toggle="tab"
-              href="#world-tab-2"
-              role="tab"
-              aria-controls="world-tab-2"
-              aria-selected="false"
-            >
-              Style hunter
-            </a>
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link href="#world-tab-3">
-            <a
-              className="nav-link"
-              id="tab3"
-              data-toggle="tab"
-              href="#world-tab-3"
-              role="tab"
-              aria-controls="world-tab-3"
-              aria-selected="false"
-            >
-              Vogue
-            </a>
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link href="/">
-            <a
-              className="nav-link"
-              id="tab4"
-              data-toggle="tab"
-              href="#world-tab-4"
-              role="tab"
-              aria-controls="world-tab-4"
-              aria-selected="false"
-            >
-              Health &amp; Fitness
-            </a>
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link href="/">
-            <a
-              className="nav-link"
-              id="tab5"
-              data-toggle="tab"
-              href="#world-tab-5"
-              role="tab"
-              aria-controls="world-tab-5"
-              aria-selected="false"
-            >
-              Travel
-            </a>
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link href="/">
-            <a
-              className="nav-link"
-              id="tab6"
-              data-toggle="tab"
-              href="#world-tab-6"
-              role="tab"
-              aria-controls="world-tab-6"
-              aria-selected="false"
-            >
-              Gadgets
-            </a>
-          </Link>
-        </li>
-
-        <li className="nav-item dropdown">
-          <Link href="/">
-            <a
-              className="nav-link dropdown-toggle"
-              data-toggle="dropdown"
-              href="#world-tab-7"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              More
-            </a>
-          </Link>
-          <div className="dropdown-menu show">
-            <a
-              className="nav-link"
-              id="tab7"
-              data-toggle="tab"
-              href="#world-tab-7"
-              role="tab"
-              aria-controls="world-tab-7"
-              aria-selected="false"
-            >
-              Sports
-            </a>
-
-            <a
-              className="nav-link"
-              id="tab8"
-              data-toggle="tab"
-              href="#world-tab-8"
-              role="tab"
-              aria-controls="world-tab-8"
-              aria-selected="false"
-            >
-              Politices
-            </a>
-
-            <a
-              className="nav-link"
-              id="tab9"
-              data-toggle="tab"
-              href="#world-tab-9"
-              role="tab"
-              aria-controls="world-tab-9"
-              aria-selected="false"
-            >
-              Features
-            </a>
-          </div>
-        </li>
+        {categoryInfo.map(({ label, subItems }, i) => (
+          <li
+            key={i}
+            className={`nav-item ${
+              subItems && subItems.length > 0 ? 'dropdown' : ''
+            }`}
+          >
+            {!subItems ? (
+              <>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a
+                  className={`nav-link ${
+                    selectedTab === label ? 'active' : ''
+                  }`}
+                  onClick={() => handleSelectedTab(label)}
+                >
+                  {label}
+                </a>
+              </>
+            ) : (
+              <div ref={dropdownMenuRef}>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a
+                  className={`nav-link dropdown-toggle ${
+                    selectedTab === label ? 'active' : ''
+                  }`}
+                  onClick={handleDropdownClick}
+                >
+                  {label}
+                </a>
+                <div className={`dropdown-menu ${showDropdown ? 'show' : ''}`}>
+                  {subItems.map(({ label }, i) => (
+                    <>
+                      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                      <a
+                        key={i}
+                        className={`nav-link`}
+                        onClick={() => handleSelectedTab(label)}
+                      >
+                        {label}
+                      </a>
+                    </>
+                  ))}
+                </div>
+              </div>
+            )}
+          </li>
+        ))}
       </ul>
     </div>
   );

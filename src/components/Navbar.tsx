@@ -2,122 +2,112 @@ import logo from '@/images/logo.png';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
+import Dropdown from '@/components/DropdownMenu';
 
 interface SubItems {
-  subItemName: string;
-  subPage: string;
+  label: string;
+  value: string;
 }
 
 interface NavItems {
-  itemName: string;
-  page: string;
+  label: string;
+  value: string;
   subItems?: SubItems[];
 }
 
 const navItems: NavItems[] = [
   {
-    itemName: 'About',
-    page: '/',
+    label: 'About',
+    value: '/',
     subItems: [
       {
-        subItemName: 'Team',
-        subPage: '/',
+        label: 'Team',
+        value: '/',
       },
       {
-        subItemName: 'Partner',
-        subPage: '/',
+        label: 'Partner',
+        value: '/',
       },
       {
-        subItemName: 'Advisory',
-        subPage: '/',
+        label: 'Advisory',
+        value: '/',
       },
       {
-        subItemName: 'Travel',
-        subPage: '/',
+        label: 'Travel',
+        value: '/',
       },
     ],
   },
   {
-    itemName: 'Expert Circle',
-    page: '/',
+    label: 'Expert Circle',
+    value: '/',
     subItems: [
       {
-        subItemName: 'What is ABD Expert Circle',
-        subPage: '/',
+        label: 'What is ABD Expert Circle',
+        value: '/',
       },
       {
-        subItemName: 'Meet Circle Members',
-        subPage: '/',
+        label: 'Meet Circle Members',
+        value: '/',
       },
       {
-        subItemName: 'Meet Knowledge Advisors',
-        subPage: '/',
+        label: 'Meet Knowledge Advisors',
+        value: '/',
       },
       {
-        subItemName: 'Get Involved',
-        subPage: '/',
+        label: 'Get Involved',
+        value: '/',
       },
       {
-        subItemName: 'Community Nomination Form',
-        subPage: '/',
+        label: 'Community Nomination Form',
+        value: '/',
       },
       {
-        subItemName: 'Self-Nomination Form',
-        subPage: '/',
+        label: 'Self-Nomination Form',
+        value: '/',
       },
     ],
   },
   {
-    itemName: 'Research',
-    page: '/',
+    label: 'Research',
+    value: '/',
     subItems: [],
   },
   {
-    itemName: 'Podcasts',
-    page: '/',
+    label: 'Podcasts',
+    value: '/',
     subItems: [],
   },
   {
-    itemName: 'Volunteer',
-    page: '/',
+    label: 'Volunteer',
+    value: '/',
     subItems: [],
   },
   {
-    itemName: 'Contact',
-    page: '/',
+    label: 'Contact',
+    value: '/',
     subItems: [],
   },
 ];
 
 export default function Navbar() {
   const [scrollHeight, setScrollHeight] = useState(0);
-  const [pageClickAbout, setPageClickAbout] = useState(false);
-  const [pageClickExCircle, setPageClickExCircle] = useState(false);
+  const [buttonMenu, setButtonMenu] = useState(false);
 
   const handleScroll = () => {
     setScrollHeight(window.scrollY);
   };
 
-  const handleClickAbout = () => {
-    if (pageClickAbout === false) {
-      setPageClickAbout(true);
-    } else {
-      setPageClickAbout(false);
-    }
-  };
-
-  const handleClickExCircle = () => {
-    if (pageClickExCircle === false) {
-      setPageClickExCircle(true);
-    } else {
-      setPageClickExCircle(false);
-    }
+  const handleButtonClick = () => {
+    setButtonMenu(!buttonMenu);
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
@@ -127,7 +117,7 @@ export default function Navbar() {
           <div className="row">
             <div className="col-12">
               <nav className="navbar navbar-expand-lg">
-                <Link href="/">
+                <Link legacyBehavior href="/">
                   <a className="navbar-brand">
                     <Image src={logo} alt="Logo" />
                   </a>
@@ -140,64 +130,33 @@ export default function Navbar() {
                   aria-controls="worldNav"
                   aria-expanded="false"
                   aria-label="Toggle navigation"
+                  onClick={handleButtonClick}
                 >
                   <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="collapse navbar-collapse show" id="worldNav">
+                <div
+                  className={`collapse navbar-collapse ${
+                    buttonMenu ? 'show' : ''
+                  }`}
+                  id="worldNav"
+                >
                   <ul className="navbar-nav ml-auto">
                     <li className="nav-item active">
-                      <Link href="/">
-                        <a className="nav-link">
-                          Home <span className="sr-only">(current)</span>
-                        </a>
+                      <Link legacyBehavior href="/">
+                        <a className="nav-link">Home</a>
                       </Link>
                     </li>
-                    {navItems.map(({ itemName, page, subItems }, i) => (
+                    {navItems.map(({ label, value, subItems }, i) => (
                       <li
                         key={i}
                         className={`nav-item ${subItems ? 'dropdown' : ''}`}
                       >
                         {subItems && subItems.length > 0 ? (
-                          <div>
-                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                            <a
-                              href="#"
-                              onClick={
-                                itemName === 'About'
-                                  ? handleClickAbout
-                                  : handleClickExCircle
-                              }
-                              className="nav-link dropdown-toggle"
-                              type="button"
-                              id="navbarDropdown"
-                              role="button"
-                              aria-haspopup="true"
-                              aria-expanded="false"
-                            >
-                              {itemName}
-                            </a>
-                            <div
-                              className={`dropdown-menu ${
-                                pageClickAbout && itemName === 'About'
-                                  ? 'show'
-                                  : pageClickExCircle &&
-                                    itemName === 'Expert Circle'
-                                  ? 'show'
-                                  : ''
-                              }`}
-                              aria-labelledby="navbarDropdown"
-                            >
-                              {subItems.map(({ subItemName, subPage }, y) => (
-                                <Link href={subPage} key={y}>
-                                  <a className="dropdown-item">{subItemName}</a>
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
+                          <Dropdown label={label} items={subItems} />
                         ) : (
-                          <Link href={page}>
-                            <a className="nav-link">{itemName}</a>
+                          <Link legacyBehavior href={value}>
+                            <a className="nav-link">{label}</a>
                           </Link>
                         )}
                       </li>

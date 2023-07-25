@@ -73,17 +73,13 @@ const headerInfo = [
   },
 ];
 
-const bb1 = 'Stock_Market_Memes_1_02faf7cff4.jpg';
-const bb2 = 'c9lg95srmj521_16ec778344.png';
-const bb3 = 'rainbow_cat_rainbow_81e9b06053.gif';
-
 const doNotMissSquarePostInfo: PostInfo[] = [
   {
     postType: 'square',
     delay: '0.0s',
     blogClass: 'single-blog-post',
     h5Class: '',
-    thumbnail: bb1,
+    thumbnail: b1,
     title:
       'How Did van Gogh’s Turbulent Mind Depict\
     One of the Most Complex Concepts in\
@@ -104,7 +100,7 @@ const doNotMissSquarePostInfo: PostInfo[] = [
     delay: '0.0s',
     blogClass: 'single-blog-post',
     h5Class: '',
-    thumbnail: bb2,
+    thumbnail: b2,
     title:
       'How Did van Gogh’s Turbulent Mind Depict\
     One of the Most Complex Concepts in\
@@ -125,7 +121,7 @@ const doNotMissSquarePostInfo: PostInfo[] = [
     delay: '0.0s',
     blogClass: 'single-blog-post',
     h5Class: '',
-    thumbnail: bb3,
+    thumbnail: b3,
     title:
       'How Did van Gogh’s Turbulent Mind Depict\
     One of the Most Complex Concepts in\
@@ -512,18 +508,18 @@ const videoPostInfo: PostInfo[] = [
   },
 ];
 
-export async function getStaticProps() {
-  const res = await fetch(
-    'http://3.138.183.244:1337/api/artificial-intelligences/1',
-  );
-  const ai = await res.json();
-  const data = ai.data;
-  return {
-    props: { data },
-  };
-}
+// export async function getStaticProps() {
+//   const res = await fetch(
+//     'http://3.138.183.244:1337/api/artificial-intelligences/1',
+//   );
+//   const ai = await res.json();
+//   const data = ai.data;
+//   return {
+//     props: { data },
+//   };
+// }
 
-export default function Home({ data }: any) {
+export default function Home() {
   return (
     <div>
       <div className="hero-area">
@@ -588,7 +584,7 @@ export default function Home({ data }: any) {
                           <p>{key}</p>
                         </div>
                         <div className="post-title">
-                          <Link href={href}>
+                          <Link legacyBehavior href={href}>
                             <a>{title}</a>
                           </Link>
                         </div>
@@ -611,10 +607,7 @@ export default function Home({ data }: any) {
                 {/* Don't Miss Section */}
                 <div className="world-catagory-area">
                   {/* Don’t Miss */}
-                  <CategoryBar
-                    title={data.attributes.AI_Contents}
-                    tabID={'myTab'}
-                  />
+                  <CategoryBar title={"Don't Miss"} tabID={'myTab'} />
                   <div className="tab-content" id="myTabContent">
                     <div
                       className="tab-pane fade show active"
@@ -1000,9 +993,9 @@ export default function Home({ data }: any) {
             </div>
           </div>
 
-          <div className="row justify-content-center">
-            {/* ========== Picture Post Section ========== */}
-            {picturePostInfo.map(
+          {/* <div className="row justify-content-center"> */}
+          {/* ========== Picture Post Section ========== */}
+          {/* {picturePostInfo.map(
               (
                 {
                   postType,
@@ -1037,7 +1030,7 @@ export default function Home({ data }: any) {
                 />
               ),
             )}
-          </div>
+          </div> */}
 
           {/* Latest Article Section */}
           <div className="world-latest-articles">

@@ -25,15 +25,18 @@
     ]
   },
   "dependencies": {
+    "@next/codemod": "13.4.9",
     "@popperjs/core": "2.11.5",
     "bootstrap": "5.2.2",
     "jquery": "3.6.1",
-    "next": "12.3.1",
+    "next": "13.4.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-owl-carousel": "2.3.3",
+    "react-select": "5.7.0",
     "react-spring": "9.5.5",
     "sass": "1.55.0",
+    "webpack": "5.88.1",
     "wow.js": "1.2.2"
   },
   "devDependencies": {
@@ -47,7 +50,7 @@
     "commitizen": "4.2.4",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "8.24.0",
-    "eslint-config-next": "12.3.1",
+    "eslint-config-next": "13.4.9",
     "eslint-config-prettier": "8.5.0",
     "eslint-import-resolver-typescript": "2.7.1",
     "eslint-plugin-prettier": "4.2.1",

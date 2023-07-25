@@ -64,6 +64,7 @@ a {
     font-weight: 400;
     font-family: $ubuntu-fonts;
     color: $text-color;
+    cursor: pointer;
     &:hover,
     &:focus {
         font-family: $ubuntu-fonts;

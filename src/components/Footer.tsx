@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import logo from '@/images/logo.png';
 
 const navItems = [
@@ -37,7 +37,7 @@ export default function Footer() {
           <div className="row">
             <div className="col-12 col-md-4">
               <div className="footer-single-widget">
-                <Link href="/">
+                <Link legacyBehavior href="/">
                   <a>
                     <Image src={logo} alt="icon" />
                   </a>
@@ -57,7 +57,7 @@ export default function Footer() {
                 <ul className="footer-menu d-flex justify-content-between">
                   {navItems.map(({ name, href }, i) => (
                     <li key={i}>
-                      <Link href={href}>
+                      <Link legacyBehavior href={href}>
                         <a>{name}</a>
                       </Link>
                     </li>

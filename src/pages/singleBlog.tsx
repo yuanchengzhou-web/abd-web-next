@@ -75,7 +75,7 @@ export default function SingleBlog() {
               <div className="single-blog-title text-center">
                 {/* Catagory */}
                 <div className="post-cta">
-                  <Link href="/category">
+                  <Link legacyBehavior href="/category">
                     <a>travel</a>
                   </Link>
                 </div>
@@ -157,7 +157,7 @@ export default function SingleBlog() {
                   <ul className="post-tags">
                     {tagInfo.map(({ name, href }, i) => (
                       <li key={i}>
-                        <Link href={href}>
+                        <Link legacyBehavior href={href}>
                           <a>{name}</a>
                         </Link>
                       </li>

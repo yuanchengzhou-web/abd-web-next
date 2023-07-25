@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 import Post from '@/components/Post';
 import { PostInfo } from '@/components/Post';
@@ -175,7 +175,7 @@ export default function SideBar() {
           <div className="widget-content">
             <div className="social-area d-flex justify-content-between">
               {thirdAppInfo.map(({ key, className, href }) => (
-                <Link href={href} key={key}>
+                <Link legacyBehavior href={href} key={key}>
                   <a>
                     <i className={className} />
                   </a>
@@ -201,7 +201,7 @@ export default function SideBar() {
                 />
               </div>
               <div className="post-content px-0 pb-0px-0 pb-0">
-                <Link href="/">
+                <Link legacyBehavior href="/">
                   <a className="headline">
                     <h5>
                       How Did van Gogh’s Turbulent Mind Depict One of the Most

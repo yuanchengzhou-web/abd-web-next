@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image, { StaticImageData } from 'next/image';
+import Image, { StaticImageData } from 'next/legacy/image';
 
 export interface PostInfo {
   postType: string;
@@ -30,16 +30,16 @@ export default function Post({
   time,
   videoLink,
 }: PostInfo) {
-  const myLoader = () => {
-    return `https://abd-strapi-files.s3.us-east-2.amazonaws.com/${
-      typeof thumbnail === 'string' ? thumbnail : 'doggo_doge_0276052fbb.gif'
-    }`;
-  };
+  // const myLoader = () => {
+  //   return `https://abd-strapi-files.s3.us-east-2.amazonaws.com/${
+  //     typeof thumbnail === 'string' ? thumbnail : 'doggo_doge_0276052fbb.gif'
+  //   }`;
+  // };
   return (
     <div className={blogClass} data-wow-delay={delay}>
       <div className="post-thumbnail">
         <Image
-          loader={myLoader}
+          // loader={myLoader}
           src={thumbnail}
           alt={title}
           width={postType === 'picture' ? '15 px' : '100%'}
@@ -60,29 +60,29 @@ export default function Post({
             {postType === 'picture' ? (
               <div>
                 <div className="post-tag">
-                  <Link href={href}>
+                  <Link legacyBehavior href={href}>
                     <a>travel</a>
                   </Link>
                 </div>
-                <Link href={href}>
+                <Link legacyBehavior href={href}>
                   <a className="headline">
                     <h5>{title}</h5>
                   </a>
                 </Link>
                 <div className="post-meta">
                   <p>
-                    <Link href={href}>
+                    <Link legacyBehavior href={href}>
                       <a className="post-author">{author}</a>
                     </Link>
                     &nbsp;on&nbsp;
-                    <Link href={href}>
+                    <Link legacyBehavior href={href}>
                       <a className="post-date">{time}</a>
                     </Link>
                   </p>
                 </div>
               </div>
             ) : (
-              <Link href={href}>
+              <Link legacyBehavior href={href}>
                 <a>travel</a>
               </Link>
             )}
@@ -91,7 +91,7 @@ export default function Post({
           <></>
         )}
         {postType === 'video' ? (
-          <Link href={videoLink}>
+          <Link legacyBehavior href={videoLink}>
             <a className="video-btn">
               <i className="fa fa-play"></i>
             </a>
@@ -103,7 +103,7 @@ export default function Post({
       {/* <!-- Post Content --> */}
       {postType !== 'picture' ? (
         <div className="post-content">
-          <Link href={href}>
+          <Link legacyBehavior href={href}>
             <a className="headline">
               <h5 className={h5Class}>{title}</h5>
             </a>
@@ -122,11 +122,11 @@ export default function Post({
           postType === 'video' ? (
             <div className="post-meta">
               <p>
-                <Link href={href}>
+                <Link legacyBehavior href={href}>
                   <a className="post-author">{author}</a>
                 </Link>
                 &nbsp;on&nbsp;
-                <Link href={href}>
+                <Link legacyBehavior href={href}>
                   <a className="post-date">{time}</a>
                 </Link>
               </p>
